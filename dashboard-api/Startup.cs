@@ -28,6 +28,12 @@ namespace dashboard_api
         {
 
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dashboard_api", Version = "v1" });
@@ -48,6 +54,8 @@ namespace dashboard_api
 
             app.UseRouting();
 
+            app.UseCors("Open");
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
