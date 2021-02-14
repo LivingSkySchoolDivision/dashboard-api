@@ -27,7 +27,9 @@ namespace dashboard_api.Controllers
                 DateTime adjustedTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, specifiedTimeZone);
                 return new TimeResponse(adjustedTime);
             }
-            catch {}
+            catch {
+                Console.WriteLine("Unable to parse timezone: " + timezone);
+            }
 
             return null;
         }
