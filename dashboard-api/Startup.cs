@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using dashboard_api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +40,10 @@ namespace dashboard_api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dashboard_api", Version = "v1" });
             });
+
+            // Services for dependency injection
+            services.AddSingleton<HttpClient>(s => { return new HttpClient { }; });
+            services.AddSingleton<EnvironmentMonitorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
