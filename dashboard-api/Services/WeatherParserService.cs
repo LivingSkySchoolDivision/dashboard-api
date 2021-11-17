@@ -18,14 +18,20 @@ namespace dashboard_api.Services {
 
         public async Task<CurrentWeather> Get(string locationcode) {
             if (validateLocationCode(locationcode)) {
+
+                CurrentWeather currentWeather = EnvCanadaCurrentWeatherParser.ParseXML(await _httpClient.GetStringAsync($"https://weather.gc.ca/rss/city/{locationcode}_e.xml"));
+
                 // Hack because environment canada's weather station sk-34 doesn't seem to report temperature anymore. Use the closest one instead (sk-40).
                 // Multiple other projects rely on this data, so changing this here is easier, though more hacky
                 // Remove this if/when this ever gets fixed on Environment Canada's end.
-                if (locationcode == "sk-34") {
+                if (string.IsNullOrEmpty(currentWeather.TemperatureCelsius) && (locationcode == "sk-34")) 
+                {                    
                     locationcode = "sk-40";
+                    return EnvCanadaCurrentWeatherParser.ParseXML(await _httpClient.GetStringAsync($"https://weather.gc.ca/rss/city/sk-40_e.xml"));
+                } else {
+                    return currentWeather;
                 }
-                
-                return EnvCanadaCurrentWeatherParser.ParseXML(await _httpClient.GetStringAsync($"https://weather.gc.ca/rss/city/{locationcode}_e.xml"));
+
             } else {
                 return new CurrentWeather();
             }
