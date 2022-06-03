@@ -15,11 +15,7 @@ namespace dashboard_api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return new JsonResult(new { ping = "pong" }, new System.Text.Json.JsonSerializerOptions()
-                {
-                    IgnoreNullValues = false,
-                    WriteIndented = true
-                });
+            return new JsonResult(new { ping = "pong" });
         }
 
 
