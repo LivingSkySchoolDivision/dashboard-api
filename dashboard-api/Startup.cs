@@ -64,7 +64,7 @@ namespace dashboard_api
             app.UseRouting();
 
             app.UseCors("Open");
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
