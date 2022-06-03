@@ -21,10 +21,9 @@ namespace dashboard_api.Controllers
         [HttpGet]
         [Route("[controller]/{timezone}")]
         public TimeResponse GetTimeZone(string timezone)
-        {               
-            try {         
+        {
+            try {
                 string parsedTimeZone = timezone.Replace('_','/');
-                Console.WriteLine(parsedTimeZone);
                 TimeZoneInfo specifiedTimeZone = TimeZoneInfo.FindSystemTimeZoneById(parsedTimeZone);
                 DateTime adjustedTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, specifiedTimeZone);
                 return new TimeResponse(adjustedTime);
@@ -40,6 +39,6 @@ namespace dashboard_api.Controllers
         {
             return new TimeResponse(DateTime.UtcNow);
         }
-        
+
     }
 }

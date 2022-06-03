@@ -44,9 +44,7 @@ namespace dashboard_api
 
             // Services for dependency injection
             services.AddSingleton<HttpClient>(s => { return new HttpClient { }; });
-            services.AddSingleton<EnvironmentMonitorService>();
             services.AddSingleton<WeatherParserService>();
-            services.AddSingleton<ITWatchDogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
