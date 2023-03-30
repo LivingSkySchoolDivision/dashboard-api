@@ -18,8 +18,12 @@ namespace dashboard_api.Services {
 
         public async Task<CurrentWeather> Get(string locationcode) {
             if (validateLocationCode(locationcode)) {
+                
+                string request_url = $"https://www.weather.gc.ca/rss/city/{locationcode}_e.xml";
 
-                CurrentWeather currentWeather = EnvCanadaCurrentWeatherParser.ParseXML(await _httpClient.GetStringAsync($"https://weather.gc.ca/rss/city/{locationcode}_e.xml"));
+                Console.WriteLine("Sending request to: " + request_url);
+
+                CurrentWeather currentWeather = EnvCanadaCurrentWeatherParser.ParseXML(await _httpClient.GetStringAsync(request_url));
 
                 // Hack because environment canada's weather station sk-34 doesn't seem to report temperature anymore. Use the closest one instead (sk-40).
                 // Multiple other projects rely on this data, so changing this here is easier, though more hacky

@@ -10,8 +10,8 @@ namespace dashboard_api.Helpers.Weather
     {
         private const string _locationTitleFluff_EN = " - Weather - Environment Canada";
         private const string _locationTitleFluff_FR = " - Météo - Environnement Canada";
-        private const string _urlFluff_EN = "https://www.weather.gc.ca/rss/city/";
-        private const string _urlFluff_FR = "https://www.meteo.gc.ca/rss/city/";
+        private const string _urlFluff_EN = "https://weather.gc.ca/rss/city/";
+        private const string _urlFluff_FR = "https://meteo.gc.ca/rss/city/";
 
         public static CurrentWeather ParseXML(string inputXML)
         {
@@ -65,7 +65,7 @@ namespace dashboard_api.Helpers.Weather
                                         fieldsWithFoundValues++;
                                     } else
                                     {
-                                        throw new UnexpectedXMLFormatException("Incorrect XML format - self ref was \"" + attribute.Value + "\", but expected \"" + _urlFluff_EN + "...\" or \"" + _urlFluff_FR + "\"");
+                                        throw new UnexpectedXMLFormatException("[LSSD ERROR] Incorrect XML format - self ref was \"" + attribute.Value + "\", but expected \"" + _urlFluff_EN + "...\" or \"" + _urlFluff_FR + "\"");
                                     }
                                 }
                             }
